@@ -1,0 +1,127 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+      var itemArray = JSON.parse( <?= itemArray ?> ) ;
+      var parameter = JSON.parse( <?= parameter ?> );
+
+      for (const key in parameter) {
+        document.querySelector(':root').style.setProperty('--'+key, parameter[key]);
+      }
+
+      WebFont.load({
+        google: {
+          families: [parameter.font]
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', function() {
+        for (var i = 0; i < itemArray.length; i++) {
+          document.getElementById("videogrid").insertAdjacentHTML('beforeend', '<a class="thumb" id="thumb_'+itemArray[i].vId+'" href="#player_'+itemArray[i].vId+'" onclick="playVideo(\''+itemArray[i].vId+'\')"><img class="thumbImg" src="https://i2.ytimg.com/vi/'+itemArray[i].vId+'/hqdefault.jpg"/><div class="thumbPlaying">Now Playing</div><div class="thumbTitle">'+itemArray[i].vTitle+'</div></a><div class="player" id="player_'+itemArray[i].vId+'"><iframe id="playerFrame_'+itemArray[i].vId+'" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>');
+        };
+        if (itemArray.length == 0) {
+          document.getElementById("videogrid").innerHTML = '<div class="empty">No videos found.</div>'
+        }
+      });
+
+      function playVideo(vId) {
+        var lastThumb = document.getElementById("curThumbPlaying");
+        lastThumb !== null && (lastThumb.removeAttribute("id"));
+        document.getElementById("thumb_"+vId).getElementsByClassName("thumbPlaying")[0].id = "curThumbPlaying";
+        var lastVid = document.querySelector("iframe[src^=\'https://www.youtube-nocookie.com/embed/\']");
+        lastVid !== null && (lastVid.src="");
+        document.getElementById("playerFrame_"+vId).src="https://www.youtube-nocookie.com/embed/"+vId+"?&autoplay=1&modestbranding=1&rel=0";
+      }
+
+    </script>
+    <style>
+      body {
+        margin: 0px;
+        font-family: var(--font);
+        font-size: var(--fontSize);
+        font-weight: var(--fontWght);
+        line-height: var(--lineHeight);
+        background-color: var(--bgCol);
+      }
+      .videogrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 220px);
+        grid-auto-rows: auto;
+        grid-auto-flow: dense;
+        column-gap: 30px;
+        row-gap: 50px;
+        justify-content: space-between;
+      }
+      .player {
+        display:none;
+      }
+      .player:target{
+        display:inline-block;
+      }
+      .player {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        max-height: 100vh;
+        max-width: calc(100vh * 1.78);
+        grid-column-start: 1;
+        grid-column-end: -1;
+      }
+      .player iframe {
+        height: 100%;
+        width: 100%;
+      }
+      .thumb {
+        position: relative;
+      }
+      .thumbImg {
+        width: 220px;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        vertical-align: text-top;
+      }
+      .thumbPlaying {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        height: 128px;
+        width: 220px;
+        color: white;
+        background-color: rgba(0,0,0,80%);
+        visibility: hidden;
+      }
+      #curThumbPlaying {
+        visibility: visible;
+      }
+      .thumbTitle {
+        color: var(--aCol);
+        text-decoration: underline;
+        min-height: calc(var(--lineHeight) * 2em);
+        display: -webkit-inline-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      @media all and (max-width:550px) {
+        .videogrid {
+          grid-template-columns: 100%;
+        }
+        .thumbImg {
+          display: inline-block;
+          vertical-align: top;
+        }
+        .thumbTitle {
+          width: calc(100% - 255px);
+          padding-left: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="videogrid" id="videogrid">
+
+    </div>
+  </body>
+</html>
