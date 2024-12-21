@@ -10,7 +10,7 @@
       parameter.fontWght = (parameter.fontWght == undefined) ? "normal" : parameter.fontWght;
       parameter.lineHeight = (parameter.lineHeight == undefined) ? 1.2 : parameter.lineHeight;
       parameter.bgCol = (parameter.bgCol == undefined) ? "white" : parameter.bgCol;
-      parameter.aCol = (parameter.aCol == undefined) ? "#0000EE" : parameter.aCol;
+      parameter.aCol = (parameter.aCol == undefined) ? "rgb(0,0,238)" : parameter.aCol;
 
       for (const key in parameter) {
         document.querySelector(':root').style.setProperty('--'+key, parameter[key]);
