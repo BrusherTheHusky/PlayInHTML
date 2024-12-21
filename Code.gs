@@ -1,5 +1,6 @@
 function doGet(p) {
-  var results = (p.parameter.results == undefined) ? Infinity : p.parameter.results;
+  p.parameter.results = (p.parameter.results == undefined) ? Infinity : p.parameter.results;
+  p.parameter.list = (p.parameter.list == undefined) ? "UUaN5pdq-IL4TMCusowpEn6w" : p.parameter.list
   var itemArray = [];
   var nextPageToken = "";
   var webOut = HtmlService.createTemplateFromFile('index');
@@ -16,9 +17,9 @@ function doGet(p) {
       if (pItem.status.privacyStatus == "public" && itemArray.findIndex((item) => item.vId === pItem.snippet.resourceId.videoId) === -1) {
         itemArray.push({'vId': pItem.snippet.resourceId.videoId, 'vTitle': pItem.snippet.title});
       }
-      if (itemArray.length == results) {break};
+      if (itemArray.length == p.parameter.results) {break};
     };
-    if (itemArray.length == results) {break};
+    if (itemArray.length == p.parameter.results) {break};
     nextPageToken = response.nextPageToken;
   };
 
