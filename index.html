@@ -5,13 +5,20 @@
       var itemArray = JSON.parse( <?= itemArray ?> ) ;
       var parameter = JSON.parse( <?= parameter ?> );
 
+      parameter.font = (parameter.font == undefined) ? "sans-serif" : parameter.font;
+      parameter.fontSize = (parameter.fontSize == undefined) ? "12pt" : parameter.fontSize;
+      parameter.fontWght = (parameter.fontWght == undefined) ? "normal" : parameter.fontWght;
+      parameter.lineHeight = (parameter.lineHeight == undefined) ? 1.2 : parameter.lineHeight;
+      parameter.bgCol = (parameter.bgCol == undefined) ? "white" : parameter.bgCol;
+      parameter.aCol = (parameter.aCol == undefined) ? "#0000EE" : parameter.aCol;
+
       for (const key in parameter) {
         document.querySelector(':root').style.setProperty('--'+key, parameter[key]);
       }
 
       WebFont.load({
         google: {
-          families: [parameter.font]
+          families: [parameter.font+':'+parameter.fontWght]
         }
       });
 
@@ -86,8 +93,8 @@
         align-items: center;
         position: absolute;
         top: 0;
-        height: 128px;
         width: 220px;
+        aspect-ratio: 16 / 9;
         color: white;
         background-color: rgba(0,0,0,80%);
         visibility: hidden;
