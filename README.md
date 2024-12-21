@@ -1,6 +1,8 @@
 # PlayInHTML
 Takes a Youtube playlist and prettifies it into HTML using Google App Script. Ideal for integrating with Google Sites.
 
+![YTPlaylist](https://github.com/user-attachments/assets/8e1fe0c1-cf7b-43f5-b0d1-24ceae502e73)
+
 ## Parameters
 Once published as a web app, the following parameters are available:
 
@@ -47,5 +49,3 @@ Sets the line height
 
 ## Example URL
   `https://script.google.com/macros/s/AKf...4EsLU/exec?aCol=rgb(28,28,28)&font=Open+Sans&fontSize=12pt&fontWght=400&lineHeight=1.5&results=50&list=UUaN5pdq-IL4TMCusowpEn6w`
-
-![YTPlaylist](https://github.com/user-attachments/assets/8e1fe0c1-cf7b-43f5-b0d1-24ceae502e73)
