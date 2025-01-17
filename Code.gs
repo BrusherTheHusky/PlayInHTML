@@ -1,6 +1,14 @@
 function doGet(p) {
-  p.parameter.results = (p.parameter.results == undefined) ? Infinity : p.parameter.results;
-  p.parameter.list = (p.parameter.list == undefined) ? "UUaN5pdq-IL4TMCusowpEn6w" : p.parameter.list
+  const config = JSON.parse(HtmlService.createHtmlOutputFromFile("config.html").getContent());
+  p.parameter.results = (p.parameter.results == undefined) ? config.defaults.results : p.parameter.results;
+  p.parameter.list = (p.parameter.list == undefined) ? config.defaults.list : p.parameter.list
+  p.parameter.font = (p.parameter.font == undefined) ? config.defaults.font : p.parameter.font;
+  p.parameter.fontSize = (p.parameter.fontSize == undefined) ? config.defaults.fontSize : p.parameter.fontSize;
+  p.parameter.fontWght = (p.parameter.fontWght == undefined) ? config.defaults.fontWght : p.parameter.fontWght;
+  p.parameter.lineHeight = (p.parameter.lineHeight == undefined) ? config.defaults.lineHeight : p.parameter.lineHeight;
+  p.parameter.bgCol = (p.parameter.bgCol == undefined) ? config.defaults.bgCol : p.parameter.bgCol;
+  p.parameter.aCol = (p.parameter.aCol == undefined) ? config.defaults.aCol : p.parameter.aCol;
+
   var itemArray = [];
   var nextPageToken = "";
   var webOut = HtmlService.createTemplateFromFile('index');
