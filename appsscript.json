@@ -1,5 +1,5 @@
 {
-  "timeZone": "Europe/Dublin",
+  "timeZone": "Etc/GMT",
   "dependencies": {
     "enabledAdvancedServices": [
       {
