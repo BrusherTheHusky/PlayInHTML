@@ -1,5 +1,5 @@
 /*  PlayInHTML - Takes a Youtube playlist and prettifies it into HTML
-    Copyright (C) 2025 Brusher The Husky
+    Copyright (C) 2025
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,7 +20,8 @@
 function doGet(p) {
   const config = JSON.parse(HtmlService.createHtmlOutputFromFile("config.html").getContent());
   p.parameter.results = (p.parameter.results == undefined) ? config.defaults.results : p.parameter.results;
-  p.parameter.list = (p.parameter.list == undefined) ? config.defaults.list : p.parameter.list
+  p.parameter.list = (p.parameter.list == undefined) ? config.defaults.list : p.parameter.list;
+  p.parameter.filter = (p.parameter.filter == undefined) ? config.defaults.filter : p.parameter.filter;
   p.parameter.font = (p.parameter.font == undefined) ? config.defaults.font : p.parameter.font;
   p.parameter.fontSize = (p.parameter.fontSize == undefined) ? config.defaults.fontSize : p.parameter.fontSize;
   p.parameter.fontWght = (p.parameter.fontWght == undefined) ? config.defaults.fontWght : p.parameter.fontWght;
@@ -41,7 +42,7 @@ function doGet(p) {
     var response = YouTube.PlaylistItems.list('snippet,status', {playlistId: p.parameter.list, maxResults: 50, pageToken: nextPageToken});
     for (var i = 0; i < response.items.length; i++) {
       var pItem = response.items[i];
-      if (pItem.status.privacyStatus == "public" && itemArray.findIndex((item) => item.vId === pItem.snippet.resourceId.videoId) === -1) {
+      if (p.parameter.filter.includes(pItem.status.privacyStatus) && itemArray.findIndex((item) => item.vId === pItem.snippet.resourceId.videoId) === -1) {
         itemArray.push({'vId': pItem.snippet.resourceId.videoId, 'vTitle': pItem.snippet.title});
       }
       if (itemArray.length == p.parameter.results) {break};
