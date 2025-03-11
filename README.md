@@ -11,6 +11,11 @@ The playlist ID to pull data from
 * Expected value: String of playlist ID
 * Default value: `UUaN5pdq-IL4TMCusowpEn6w`
 
+### `filter=[public,unlisted]`
+Choose whether or not to show private/unlisted videos in results
+* Expected value: Array containing some or all of `public`, `unlisted`, or `private`
+* Default value: `[public,unlisted]`
+
 ### `results=10`
 Limits the number of results  
 NOTE: Setting this to a high value or leaving unset will have a large impact on load times  
